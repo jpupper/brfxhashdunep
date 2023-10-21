@@ -5,12 +5,14 @@ import { Particula } from './particle.js'
 import { ParticleSystem } from './particlesystem.js'
 import { FlowField } from './flowfield.js'
 import { ShaderManager} from './rendermanager.js'
+//var express = require("express");
 
 
-//import socketIO from 'socket.io';
+const io = require('socket.io-client');
 
-//import io from 'socket.io-client';
-//const socket = io('http://localhost:3000');
+
+const socket = io('http://localhost:3300/?target=http%3A%2F%2Flocalhost%3A3301');
+
 
 function genR(min, max) {
 	let result = 0;
@@ -132,6 +134,11 @@ const sketch = (p) => {
     //socket = io.connect("https://cocaemoji-bad03ba08de2.herokuapp.com");
 	  //socket = io.connect();
 	  //socket.on("mouse",  p.newDrawing);
+     // Escuchar mensajes de socket
+  socket.on('mousePressed', (data) => {
+    console.log('Mouse pressed at', data.mouseX, data.mouseY);
+    // Aquí puedes agregar el código para manejar este evento, como dibujar algo en la pantalla
+  });
   };
  
   p.draw = () => {
@@ -246,6 +253,12 @@ const sketch = (p) => {
     //p.generative();
     //pgparticles.background(0);
     //pgshader1.background(0);
+
+    const data = {
+      mouseX: p.mouseX,
+      mouseY: p.mouseY
+    };
+    socket.emit('mousePressed', data);
   };
 
   p.keyPressed = () => {
