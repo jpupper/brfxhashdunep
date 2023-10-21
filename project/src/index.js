@@ -6,6 +6,12 @@ import { ParticleSystem } from './particlesystem.js'
 import { FlowField } from './flowfield.js'
 import { ShaderManager} from './rendermanager.js'
 
+
+//import socketIO from 'socket.io';
+
+//import io from 'socket.io-client';
+//const socket = io('http://localhost:3000');
+
 function genR(min, max) {
 	let result = 0;
 	if (!max) { result = fxrand() * (min - 0) + 0; } else { result = fxrand() * (max - min) + min; }
@@ -123,6 +129,9 @@ const sketch = (p) => {
                           bw,maxsize,lr,bs,rl,maxalpha);*/
     //ps = new ParticleSystem(p);
     p.generative();
+    //socket = io.connect("https://cocaemoji-bad03ba08de2.herokuapp.com");
+	  //socket = io.connect();
+	  //socket.on("mouse",  p.newDrawing);
   };
  
   p.draw = () => {
@@ -154,7 +163,13 @@ const sketch = (p) => {
     pgshader1.pop();
   }
 
-
+  p.newDrawing = (data2) => {
+    console.log(data2);
+    //dibujarCoso(data2);
+    if (renderMode) {
+      addParticle(data2);
+    }
+  }
   p.update = () =>{
     ps.update();
     ff.updatePS(ps);

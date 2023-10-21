@@ -149,6 +149,6 @@ void main() {
 				smoothstep(mapsize,mapsize+mapdifuse,1.-uv3.y) *
 				smoothstep(mapsize,mapsize+mapdifuse,uv3.y);
         //fin.rgb+= vec3(psprom)*cols*.1;
- gl_FragColor = vec4(fin*v);
- //gl_FragColor = vec4(def);
+        gl_FragColor = vec4(fin*v);
+        //gl_FragColor = vec4(def);
 }
